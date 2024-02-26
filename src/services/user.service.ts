@@ -51,6 +51,27 @@ class UserService {
       return null
     }
   }
+
+  async delete(id: string): Promise<UserDocument | null> {
+    try {
+      const deletedUser = await UserModel.findByIdAndDelete(id);
+      return deletedUser;
+    } catch (error) {
+      console.log('Error while deleting user', error);
+      return null;
+    }
+  }
+
+  async update(id: string, updates: Partial<User>): Promise<UserDocument | null> {
+    try {
+      const updatedUser = await UserModel.findByIdAndUpdate(id, updates, { new: true });
+      return updatedUser;
+    } catch (error) {
+      console.log('Error while updating user', error);
+      return null;
+    }
+  }
+
 }
 
 export default UserService

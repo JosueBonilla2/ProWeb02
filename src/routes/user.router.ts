@@ -47,4 +47,28 @@ router.get('/username/:username', async (req: Request, res: Response, next: Next
   }
 })
 
+router.delete('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const deletedUser = await userService.delete(req.params.id)
+    if (!deletedUser) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+    res.status(200).json({ message: 'User deleted successfully' })
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.patch('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const updatedUser = await userService.update(req.params.id, req.body as Partial<User>)
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+    res.status(200).json(updatedUser)
+  } catch (error) {
+    next(error)
+  }
+})
+
 export default router
