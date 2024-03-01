@@ -52,6 +52,20 @@ class UserService {
     }
   }
 
+  async findByEmail(email: string): Promise<UserDocument | null> {
+    try {
+      const user = await UserModel.findOne({ email });
+      if (!user) {
+        throw boom.notFound('User not found');
+      }
+      return user;
+    } catch (error) {
+      console.log('Error while connecting to the DB', error);
+      return null;
+    }
+  }
+  
+
   async delete(id: string): Promise<UserDocument | null> {
     try {
       const deletedUser = await UserModel.findByIdAndDelete(id);

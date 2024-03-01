@@ -35,6 +35,18 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 })
 
+router.get('/email/:email', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await userService.findByEmail(req.params.email);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get('/username/:username', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userService.findByUsername(req.params.username)

@@ -1,4 +1,3 @@
-
 import { Document, Model } from 'mongoose';
 
 interface User {
