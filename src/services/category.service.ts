@@ -1,3 +1,4 @@
+import express from 'express'
 import Categories from '../models/category.model'
 import { Category, CategoryModel } from '../types/category.type'
 import boom from '@hapi/boom'
